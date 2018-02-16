@@ -107,15 +107,59 @@ namespace CameraExample
 
             //grab imageview and display bitmap
             ImageView editView = FindViewById<ImageView>(Resource.Id.editImage);
-        
+
+            //convert bitmap into stream to be sent to Google API
+            string bitmapString = "";
+            using (var stream = new System.IO.MemoryStream())
+            {
+                bitmap.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 0, stream);
+
+                var bytes = stream.ToArray();
+                bitmapString = System.Convert.ToBase64String(bytes);
+            }
+
+            //credential is stored in "assets" folder
+            string credPath = "google_api.json";
+            Google.Apis.Auth.OAuth2.GoogleCredential cred;
+
+            //Load credentials into object form
+            using (var stream = Assets.Open(credPath))
+            {
+                cred = Google.Apis.Auth.OAuth2.GoogleCredential.FromStream(stream);
+            }
+            cred = cred.CreateScoped(Google.Apis.Vision.v1.VisionService.Scope.CloudPlatform);
+
+            // By default, the library client will authenticate 
+            // using the service account file (created in the Google Developers 
+            // Console) specified by the GOOGLE_APPLICATION_CREDENTIALS 
+            // environment variable. We are specifying our own credentials via json file.
+            var client = new Google.Apis.Vision.v1.VisionService(new Google.Apis.Services.BaseClientService.Initializer()
+            {
+                ApplicationName = "mobile-apps-tutorial",
+                HttpClientInitializer = cred
+            });
+
+            //set up request
+            var request = new Google.Apis.Vision.v1.Data.AnnotateImageRequest();
+            request.Image = new Google.Apis.Vision.v1.Data.Image();
+            request.Image.Content = bitmapString;
+
+            //tell google that we want to perform label detection
+            request.Features = new List<Google.Apis.Vision.v1.Data.Feature>();
+            request.Features.Add(new Google.Apis.Vision.v1.Data.Feature() { Type = "LABEL_DETECTION" });
+            var batch = new Google.Apis.Vision.v1.Data.BatchAnnotateImagesRequest();
+            batch.Requests = new List<Google.Apis.Vision.v1.Data.AnnotateImageRequest>();
+            batch.Requests.Add(request);
+
+            //send request.  Note that I'm calling execute() here, but you might want to use
+            //ExecuteAsync instead
+            var apiResult = client.Images.Annotate(batch).Execute();
+
             if (copy_bitmap != null)
             {
                 editView.SetImageBitmap(copy_bitmap);
             }
           
-            // Dispose of the Java side bitmap.
-            System.GC.Collect();
-
             //Set button clicks to functions
             FindViewById<Button>(Resource.Id.remRed).Click += removeRed;
             FindViewById<Button>(Resource.Id.remBlue).Click += removeBlue;
@@ -126,37 +170,41 @@ namespace CameraExample
             FindViewById<Button>(Resource.Id.grayScale).Click += grayScale;
             FindViewById<Button>(Resource.Id.highContrast).Click += highContrast;
             FindViewById<Button>(Resource.Id.addNoise).Click += addNoise;
-           // FindViewById<Button>(Resource.Id.Done).Click += done;           
+            // FindViewById<Button>(Resource.Id.Done).Click += done;   
+
+            // Dispose of the Java side bitmap.
+            System.GC.Collect();
+
         }
 
-     
-//        private void done(object sender, System.EventArgs e)
-//        {
-//
-//            ////Make image available in the gallery
-//            //Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-//            //var contentUri = Android.Net.Uri.FromFile(_file);
-//            //mediaScanIntent.SetData(contentUri);
-//            //SendBroadcast(mediaScanIntent);
-//            MediaStore.Images.Media.InsertImage(getContentResolver(), copy_bitmap, "map", "This is a map");
-//
-//            Java.IO.OutputStream outStream = null;
 
-//            try
-//            {
-//                Bitmap saving_bitmap = BitmapFactory.DecodeFile(_file.ToString());
-//                outStream = new Java.IO.FileOutputStream(_file);
-//                bitmap.Compress(Bitmap.CompressFormat.Png, 100, outStream);
-//            }
-//            //Make image available in the gallery
-//            Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-//            var contentUri = Android.Net.Uri.FromFile(_file);
-//            mediaScanIntent.SetData(contentUri);
-//            SendBroadcast(mediaScanIntent);
-//
+        //        private void done(object sender, System.EventArgs e)
+        //        {
+        //
+        //            ////Make image available in the gallery
+        //            //Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
+        //            //var contentUri = Android.Net.Uri.FromFile(_file);
+        //            //mediaScanIntent.SetData(contentUri);
+        //            //SendBroadcast(mediaScanIntent);
+        //            MediaStore.Images.Media.InsertImage(getContentResolver(), copy_bitmap, "map", "This is a map");
+        //
+        //            Java.IO.OutputStream outStream = null;
 
-//            SetContentView(Resource.Layout.Main);
-//        }
+        //            try
+        //            {
+        //                Bitmap saving_bitmap = BitmapFactory.DecodeFile(_file.ToString());
+        //                outStream = new Java.IO.FileOutputStream(_file);
+        //                bitmap.Compress(Bitmap.CompressFormat.Png, 100, outStream);
+        //            }
+        //            //Make image available in the gallery
+        //            Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
+        //            var contentUri = Android.Net.Uri.FromFile(_file);
+        //            mediaScanIntent.SetData(contentUri);
+        //            SendBroadcast(mediaScanIntent);
+        //
+
+        //            SetContentView(Resource.Layout.Main);
+        //        }
 
         private void removeRed(object sender, System.EventArgs e)
         {
