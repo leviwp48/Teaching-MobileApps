@@ -96,10 +96,18 @@ namespace CameraExample
             // Display in ImageView. We will resize the bitmap to fit the display.
             // Loading the full sized image will consume too much memory
             // and cause the application to crash.
-            ImageView imageView = FindViewById<ImageView>(Resource.Id.takenPictureImageView);
-            int height = imageView.Height;
-            int width = imageView.Width;
-            bitmap = _file.Path.LoadAndResizeBitmap(width, height);
+            //ImageView imageView = FindViewById<ImageView>(Resource.Id.takenPictureImageView);
+            //int height = imageView.Height;
+            //int width = imageView.Width;
+            //bitmap = _file.Path.LoadAndResizeBitmap(width, height);
+
+            //AC: workaround for not passing actual files
+            Android.Graphics.Bitmap bitmap = (Android.Graphics.Bitmap)data.Extras.Get("data");
+
+            //scale image to make manipulation easier
+            Android.Graphics.Bitmap smallBitmap =
+                Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, 1024, 768, true);
+           
             copy_bitmap = bitmap.Copy(Bitmap.Config.Argb8888, true);      
 
             //change layout to the editor
