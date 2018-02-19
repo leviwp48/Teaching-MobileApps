@@ -12,8 +12,8 @@ using Android.Widget;
 
 namespace CameraExample
 {
-    [Activity(Label = "visionGame")]
-    public class visionGame : Activity
+    [Activity(Label = "VisionGame")]
+    public class VisionGame : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
