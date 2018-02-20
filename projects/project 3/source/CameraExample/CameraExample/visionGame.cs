@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace PicGame
+namespace CameraExample
 {
     [Activity(Label = "VisionGame")]
     public class VisionGame : Activity
