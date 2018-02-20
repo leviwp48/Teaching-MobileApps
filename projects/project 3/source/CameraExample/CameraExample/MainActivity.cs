@@ -97,9 +97,6 @@ namespace CameraExample
             //scale image to make manipulation easier
             copy_bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, 1024, 768, true);
 
-            //grab imageview and display bitmap
-            ImageView editView = FindViewById<ImageView>(Resource.Id.editImage);
-
             //convert bitmap into stream to be sent to Google API
             string bitmapString = "";
             using (var stream = new System.IO.MemoryStream())
@@ -146,6 +143,23 @@ namespace CameraExample
             //send request.  Note that I'm calling execute() here, but you might want to use
             //ExecuteAsync instead
             var apiResult = client.Images.Annotate(batch).Execute();
+            List<string> tags = new List<string>();
+            foreach (var item in apiResult.Responses[0].LabelAnnotations)
+            {
+                tags.Add(item.Description);
+            }
+            SetContentView(Resource.Layout.VisionGame);
+
+            ImageView gamePicture = FindViewById<ImageView>(Resource.Id.gameImage);
+
+            if(gamePicture != null)
+            {
+                gamePicture.SetImageBitmap(bitmap);
+            }           
+
+            string question = string.Format("is this (a(n)) {0}?", tags[0]);
+            TextView output = FindViewById<TextView>(Resource.Id.gameText);
+            output.Text = question;
 
             // Dispose of the Java side bitmap.
             System.GC.Collect();
