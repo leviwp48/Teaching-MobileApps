@@ -10,6 +10,7 @@
         android:layout_height="300dp"
         android:id="@+id/gameImage" />
     <TextView
+        android:layout_margin="500dp"
         android:layout_height="300dp"
         android:layout_width="match_parent"
         android:id="@+id/gameText" />

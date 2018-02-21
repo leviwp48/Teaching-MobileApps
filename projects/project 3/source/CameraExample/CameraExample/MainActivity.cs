@@ -7,6 +7,7 @@ using Android.Content.PM;
 using Android.Provider;
 using Android.Graphics;
 using System;
+using System.IO;
 
 
 /*
@@ -17,17 +18,7 @@ namespace CameraExample
 {
     [Activity(Label = "CameraExample", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
-    {
-        /// <summary>
-        /// Used to track the file that we're manipulating between functions
-        /// </summary>
-        public static Java.IO.File _file;
-
-        // <summary>
-        // Used to track the directory that we'll be writing to between functions
-        // </summary>
-        public static Java.IO.File _dir;
-
+    {            
         public static Bitmap bitmap;
         public static Bitmap copy_bitmap;
 
@@ -40,11 +31,24 @@ namespace CameraExample
             SetContentView(Resource.Layout.Main);
 
             if (IsThereAnAppToTakePictures() == true)
-            {
-                CreateDirectoryForPictures();
+            {       
                 FindViewById<Button>(Resource.Id.launchCameraButton).Click += TakePicture;
             }
+
+
+           // FindViewById<Button>(Resource.Id.btn_game).Click += send_image;
+                
+            
         }
+
+        //private void send_image(object sender, EventArgs e)
+        //{
+        //    Intent send_data = new Intent(this, typeof(VisionGame));
+        //    Bundle extras = new Bundle();
+        //    extras.PutParcelable("Image", copy_bitmap);
+        //    Intent.PutExtras(extras);
+        //    StartActivity(send_data);
+        // }
 
         /// <summary>
         /// Apparently, some android devices do not have a camera.  To guard against this,
@@ -60,25 +64,20 @@ namespace CameraExample
             return availableActivities != null && availableActivities.Count > 0;
         }
 
-        /// <summary>
-        /// Creates a directory on the phone that we can place our images
-        /// </summary>
-        private void CreateDirectoryForPictures()
-        {
-            _dir = new Java.IO.File(
-                Android.OS.Environment.GetExternalStoragePublicDirectory(
-                    Android.OS.Environment.DirectoryPictures), "CameraExample");
-            if (!_dir.Exists())
-            {
-                _dir.Mkdirs();
-            }
-        }
-
         private void TakePicture(object sender, System.EventArgs e)
         {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            _file = new Java.IO.File(_dir, string.Format("myPhoto_{0}.jpg", System.Guid.NewGuid()));
+            Intent intent = new Intent(MediaStore.ActionImageCapture);           
             StartActivityForResult(intent, 0);
+        }
+
+        private void ExportBitmapAsPNG(Bitmap bitmap)
+        {      
+            System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
+            bitmap.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
+            var stream = new FileStream(filePath, FileMode.Create);
+            bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
+            fs.Flush();
+            fs.Close();
         }
 
         // <summary>
@@ -97,72 +96,20 @@ namespace CameraExample
             //scale image to make manipulation easier
             copy_bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, 1024, 768, true);
 
-            //convert bitmap into stream to be sent to Google API
-            string bitmapString = "";
-            using (var stream = new System.IO.MemoryStream())
+            ImageView takenPic = FindViewById<ImageView>(Resource.Id.takenPictureImageView);
+            if (copy_bitmap != null)
             {
-                bitmap.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 0, stream);
-
-                var bytes = stream.ToArray();
-                bitmapString = System.Convert.ToBase64String(bytes);
+                takenPic.SetImageBitmap(copy_bitmap);
             }
 
-            //credential is stored in "assets" folder
-            string credPath = "google_api.json";
-            Google.Apis.Auth.OAuth2.GoogleCredential cred;
-
-            //Load credentials into object form
-            using (var stream = Assets.Open(credPath))
+            var fileName = GetFileName(_dir);
+            using (var os = new FileStream(fileName, ParcelFileMode.CreateNew))
             {
-                cred = Google.Apis.Auth.OAuth2.GoogleCredential.FromStream(stream);
+                bitmap.Compress(Bitmap.CompressFormat.Jpeg, 95, os);
             }
-            cred = cred.CreateScoped(Google.Apis.Vision.v1.VisionService.Scope.CloudPlatform);
 
-            // By default, the library client will authenticate 
-            // using the service account file (created in the Google Developers 
-            // Console) specified by the GOOGLE_APPLICATION_CREDENTIALS 
-            // environment variable. We are specifying our own credentials via json file.
-            var client = new Google.Apis.Vision.v1.VisionService(new Google.Apis.Services.BaseClientService.Initializer()
-            {
-                ApplicationName = "mobile-apps-tutorial",
-                HttpClientInitializer = cred
-            });
-
-            //set up request
-            var request = new Google.Apis.Vision.v1.Data.AnnotateImageRequest();
-            request.Image = new Google.Apis.Vision.v1.Data.Image();
-            request.Image.Content = bitmapString;
-
-            //tell google that we want to perform label detection
-            request.Features = new List<Google.Apis.Vision.v1.Data.Feature>();
-            request.Features.Add(new Google.Apis.Vision.v1.Data.Feature() { Type = "LABEL_DETECTION" });
-            var batch = new Google.Apis.Vision.v1.Data.BatchAnnotateImagesRequest();
-            batch.Requests = new List<Google.Apis.Vision.v1.Data.AnnotateImageRequest>();
-            batch.Requests.Add(request);
-
-            //send request.  Note that I'm calling execute() here, but you might want to use
-            //ExecuteAsync instead
-            var apiResult = client.Images.Annotate(batch).Execute();
-            List<string> tags = new List<string>();
-            foreach (var item in apiResult.Responses[0].LabelAnnotations)
-            {
-                tags.Add(item.Description);
-            }
-            SetContentView(Resource.Layout.VisionGame);
-
-            ImageView gamePicture = FindViewById<ImageView>(Resource.Id.gameImage);
-
-            if(gamePicture != null)
-            {
-                gamePicture.SetImageBitmap(bitmap);
-            }           
-
-            string question = string.Format("is this (a(n)) {0}?", tags[0]);
-            TextView output = FindViewById<TextView>(Resource.Id.gameText);
-            output.Text = question;
-
-            // Dispose of the Java side bitmap.
-            System.GC.Collect();
+                // Dispose of the Java side bitmap.
+                System.GC.Collect();
         }       
     }
 }
