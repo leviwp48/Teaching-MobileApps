@@ -12,16 +12,20 @@ using System.IO;
 
 /*
  TODO: 
- Save bitmap to files and into gallery
+    Get bitmap data to move to activity
+    Get game to use camera button
+    Get progress bar working
 */
 namespace CameraExample
 {
     [Activity(Label = "CameraExample", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {            
-        public static Bitmap bitmap;
-        public static Bitmap copy_bitmap;
+        //public static Bitmap bitmap;
+        //public static Bitmap copy_bitmap;
+        public static System.IO.File _file;
 
+        Image hold_image = new Image();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,20 +39,24 @@ namespace CameraExample
                 FindViewById<Button>(Resource.Id.launchCameraButton).Click += TakePicture;
             }
 
+            FindViewById<Button>(Resource.Id.btn_game).Click += start_game;
 
-           // FindViewById<Button>(Resource.Id.btn_game).Click += send_image;
-                
-            
+            // FindViewById<Button>(Resource.Id.btn_game).Click += send_image;
         }
 
+        private void start_game(object sender, System.EventArgs e)
+        {
+            Intent intent = new Intent(VisionGame);
+            StartActivity(VisionGame);
+        }
         //private void send_image(object sender, EventArgs e)
         //{
         //    Intent send_data = new Intent(this, typeof(VisionGame));
         //    Bundle extras = new Bundle();
         //    extras.PutParcelable("Image", copy_bitmap);
-        //    Intent.PutExtras(extras);
-        //    StartActivity(send_data);
-        // }
+        //    send_data.PutExtras("map", bitmap);
+        //    this.StartActivity(send_data);
+        //}
 
         /// <summary>
         /// Apparently, some android devices do not have a camera.  To guard against this,
@@ -70,16 +78,16 @@ namespace CameraExample
             StartActivityForResult(intent, 0);
         }
 
-        private void ExportBitmapAsPNG(Bitmap bitmap)
-        {      
+        private void SaveBitmap(Bitmap map)
+        {
             System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
-            bitmap.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
+            map.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
             var stream = new FileStream(filePath, FileMode.Create);
-            bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
+            map.Compress(Bitmap.CompressFormat.Png, 100, stream);
             fs.Flush();
             fs.Close();
         }
-
+        
         // <summary>
         // Called automatically whenever an activity finishes
         // </summary>
@@ -93,23 +101,22 @@ namespace CameraExample
             //AC: workaround for not passing actual files
             Android.Graphics.Bitmap bitmap = (Android.Graphics.Bitmap)data.Extras.Get("data");
 
+            hold_image.SetBitmap(bitmap);
+
             //scale image to make manipulation easier
-            copy_bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, 1024, 768, true);
+            //copy_bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, 1024, 768, true);
 
-            ImageView takenPic = FindViewById<ImageView>(Resource.Id.takenPictureImageView);
-            if (copy_bitmap != null)
-            {
-                takenPic.SetImageBitmap(copy_bitmap);
-            }
+            SaveBitmap(bitmap);
 
-            var fileName = GetFileName(_dir);
-            using (var os = new FileStream(fileName, ParcelFileMode.CreateNew))
-            {
-                bitmap.Compress(Bitmap.CompressFormat.Jpeg, 95, os);
-            }
 
-                // Dispose of the Java side bitmap.
-                System.GC.Collect();
+            //ImageView takenPic = FindViewById<ImageView>(Resource.Id.takenPictureImageView);
+            //if (copy_bitmap != null)
+            //{
+            //    takenPic.SetImageBitmap(copy_bitmap);
+            //}
+
+            // Dispose of the Java side bitmap.
+            System.GC.Collect();
         }       
     }
 }

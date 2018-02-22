@@ -44,20 +44,32 @@ namespace CameraExample
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int btn_game = 2131099649;
+			// aapt resource value: 0x7f060007
+			public const int btn_game = 2131099655;
 			
 			// aapt resource value: 0x7f060003
-			public const int gameImage = 2131099651;
-			
-			// aapt resource value: 0x7f060004
-			public const int gameText = 2131099652;
+			public const int btn_yes = 2131099651;
 			
 			// aapt resource value: 0x7f060000
-			public const int launchCameraButton = 2131099648;
+			public const int doneBar = 2131099648;
 			
 			// aapt resource value: 0x7f060002
-			public const int takenPictureImageView = 2131099650;
+			public const int gameImage = 2131099650;
+			
+			// aapt resource value: 0x7f060001
+			public const int gameText = 2131099649;
+			
+			// aapt resource value: 0x7f060006
+			public const int launchCameraButton = 2131099654;
+			
+			// aapt resource value: 0x7f060005
+			public const int progressBar1 = 2131099653;
+			
+			// aapt resource value: 0x7f060004
+			public const int resultsText = 2131099652;
+			
+			// aapt resource value: 0x7f060008
+			public const int takenPictureImageView = 2131099656;
 			
 			static Id()
 			{
@@ -73,10 +85,10 @@ namespace CameraExample
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int GameView = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int VisionGame = 2130903041;
+			public const int Main = 2130903041;
 			
 			static Layout()
 			{

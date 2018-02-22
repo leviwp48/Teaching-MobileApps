@@ -16,7 +16,8 @@ namespace CameraExample
     public class VisionGame : Activity
     {
 
-        Android.Graphics.Bitmap bitmap; 
+        Image image = new Image();
+        Bitmap bitmap = image.bitmap;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,25 +26,15 @@ namespace CameraExample
             SetContentView(Resource.Layout.VisionGame);
 
             ImageView gamePicture = FindViewById<ImageView>(Resource.Id.gameImage);
+         
+            gamePicture.SetImageBitmap(image.bitmap);
 
-            if (gamePicture != null)
-            {
-                gamePicture.SetImageBitmap(bitmap);
-            }
+            //Bundle extras = send_data.GetParcelableExtra("Image");
+            //bitmap = (bitmap)extras.GetParcelable("Image");
 
-            Bundle extras = send_data.GetParcelableExtra("Image");
-            bitmap = (bitmap)extras.GetParcelable("Image");
-
-            //string question = string.Format("is this (a(n)) {0}?", tags[0]);
-            //TextView output = FindViewById<TextView>(Resource.Id.gameText);
-            //output.Text = question;
 
         }
 
-        private void getImage(object sender, EventArgs e)
-        {
-            
-        }
         protected void getAPI(object sender, EventArgs e)
         {
                        
@@ -98,6 +89,10 @@ namespace CameraExample
             {
                 tags.Add(item.Description);
             }
+
+            string question = string.Format("is this (a(n)) {0}?", tags[0]);
+            TextView output = FindViewById<TextView>(Resource.Id.gameText);
+            output.Text = question;
         }
 
         protected void onStart()
