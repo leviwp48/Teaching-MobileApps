@@ -30,7 +30,7 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:id="@+id/btn_yes"
+        android:id="@+id/btn_submit"
         android:layout_marginTop="425dp"
         android:layout_marginLeft="200dp"
         android:text="Submit" />

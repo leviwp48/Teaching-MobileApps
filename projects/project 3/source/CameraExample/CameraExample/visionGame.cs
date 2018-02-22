@@ -15,85 +15,104 @@ namespace CameraExample
     [Activity(Label = "VisionGame")]
     public class VisionGame : Activity
     {
-
+        // Creates Image object
         Image image = new Image();
-        Bitmap bitmap = image.bitmap;
-
+        int word_track = 0;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.VisionGame);
 
-            ImageView gamePicture = FindViewById<ImageView>(Resource.Id.gameImage);
-         
-            gamePicture.SetImageBitmap(image.bitmap);
+            // TODO: Make text change when progress bar fills up.
+            TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
+            wordToFind = image.word[word_track];
 
-            //Bundle extras = send_data.GetParcelableExtra("Image");
-            //bitmap = (bitmap)extras.GetParcelable("Image");
+            if (IsThereAnAppToTakePictures() == true)
+            {
+                ImageView cam = FindViewById<Button>(Resource.Id.launchCameraButton);
+                cam.Click += TakePicture;
+            }
 
-
+          ////  if (// checks if there is an image in cam)
+          //  {
+          //      FindViewById<Button>(Resource.Id.btn_submit).Click += SubmitPic;
+          //  }
         }
 
-        protected void getAPI(object sender, EventArgs e)
+        private void SubmitPic()
         {
-                       
-            //convert bitmap into stream to be sent to Google API
-            string bitmapString = "";
-            using (var stream = new System.IO.MemoryStream())
+            if (image.CheckBitmap() == true)
             {
-                bitmap.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 0, stream);
-
-                var bytes = stream.ToArray();
-                bitmapString = System.Convert.ToBase64String(bytes);
+                image.GetAPI();
             }
 
-            //credential is stored in "assets" folder
-            string credPath = "google_api.json";
-            Google.Apis.Auth.OAuth2.GoogleCredential cred;
-
-            //Load credentials into object form
-            using (var stream = Assets.Open(credPath))
-            {
-                cred = Google.Apis.Auth.OAuth2.GoogleCredential.FromStream(stream);
-            }
-            cred = cred.CreateScoped(Google.Apis.Vision.v1.VisionService.Scope.CloudPlatform);
-
-            // By default, the library client will authenticate 
-            // using the service account file (created in the Google Developers 
-            // Console) specified by the GOOGLE_APPLICATION_CREDENTIALS 
-            // environment variable. We are specifying our own credentials via json file.
-            var client = new Google.Apis.Vision.v1.VisionService(new Google.Apis.Services.BaseClientService.Initializer()
-            {
-                ApplicationName = "mobile-apps-tutorial",
-                HttpClientInitializer = cred
-            });
-
-            //set up request
-            var request = new Google.Apis.Vision.v1.Data.AnnotateImageRequest();
-            request.Image = new Google.Apis.Vision.v1.Data.Image();
-            request.Image.Content = bitmapString;
-
-            //tell google that we want to perform label detection
-            request.Features = new List<Google.Apis.Vision.v1.Data.Feature>();
-            request.Features.Add(new Google.Apis.Vision.v1.Data.Feature() { Type = "LABEL_DETECTION" });
-            var batch = new Google.Apis.Vision.v1.Data.BatchAnnotateImagesRequest();
-            batch.Requests = new List<Google.Apis.Vision.v1.Data.AnnotateImageRequest>();
-            batch.Requests.Add(request);
-
-            //send request.  Note that I'm calling execute() here, but you might want to use
-            //ExecuteAsync instead
-            var apiResult = client.Images.Annotate(batch).Execute();
-            List<string> tags = new List<string>();
-            foreach (var item in apiResult.Responses[0].LabelAnnotations)
-            {
-                tags.Add(item.Description);
-            }
-
-            string question = string.Format("is this (a(n)) {0}?", tags[0]);
-            TextView output = FindViewById<TextView>(Resource.Id.gameText);
-            output.Text = question;
+            //TODO: change progress bar is correct
+            //      change results txt if correct or wrong
         }
+        /// <summary>
+        /// Apparently, some android devices do not have a camera.  To guard against this,
+        /// we need to make sure that we can take pictures before we actually try to take a picture.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsThereAnAppToTakePictures()
+        {
+            Intent intent = new Intent(MediaStore.ActionImageCapture);
+            IList<ResolveInfo> availableActivities =
+                PackageManager.QueryIntentActivities
+                (intent, PackageInfoFlags.MatchDefaultOnly);
+            return availableActivities != null && availableActivities.Count > 0;
+        }
+
+        // Intent to take a picture
+        private void TakePicture(object sender, System.EventArgs e)
+        {
+            Intent intent = new Intent(MediaStore.ActionImageCapture);
+            StartActivityForResult(intent, 0);
+        }
+
+        // Hopefully saves the bitmap
+        private void SaveBitmap(Bitmap map)
+        {
+            System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
+            map.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
+            var stream = new FileStream(filePath, FileMode.Create);
+            map.Compress(Bitmap.CompressFormat.Png, 100, stream);
+            fs.Flush();
+            fs.Close();
+        }
+
+        // <summary>
+        // Called automatically whenever an activity finishes
+        // </summary>
+        // <param name = "requestCode" ></ param >
+        // < param name="resultCode"></param>
+        /// <param name="data"></param>
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            // Saves bitmap to image class
+            image.SetBitmap((Android.Graphics.Bitmap)data.Extras.Get("data"));
+
+            // Hopefully saves bitmap to memory
+            SaveBitmap(bitmap);
+
+            // Sets image on GameView layout
+            ImageView takenPic = FindViewById<ImageView>(Resource.Id.gameImage);
+            if (bitmap != null)
+            {
+                takenPic.SetImageBitmap(bitmap);
+            }
+
+            // Dispose of the Java side bitmap.
+            System.GC.Collect();
+
+            Finish();
+        }
+
+       
 
         protected void onStart()
         {
