@@ -5,7 +5,10 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
+using Android.Provider;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -23,15 +26,16 @@ namespace CameraExample
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.VisionGame);
+            SetContentView(Resource.Layout.GameView);
 
             // TODO: Make text change when progress bar fills up.
             TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
-            wordToFind = image.word[word_track];
+            //make method to grab word
+            wordToFind.Text = image.GetWords(word_track);
 
             if (IsThereAnAppToTakePictures() == true)
             {
-                ImageView cam = FindViewById<Button>(Resource.Id.launchCameraButton);
+                Button cam = FindViewById<Button>(Resource.Id.launchCameraButton);
                 cam.Click += TakePicture;
             }
 
@@ -73,15 +77,15 @@ namespace CameraExample
         }
 
         // Hopefully saves the bitmap
-        private void SaveBitmap(Bitmap map)
-        {
-            System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
-            map.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
-            var stream = new FileStream(filePath, FileMode.Create);
-            map.Compress(Bitmap.CompressFormat.Png, 100, stream);
-            fs.Flush();
-            fs.Close();
-        }
+        //private void SaveBitmap(Bitmap map)
+        //{
+        //    System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
+        //    map.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
+        //    var stream = new FileStream(filePath, FileMode.Create);
+        //    map.Compress(Bitmap.CompressFormat.Png, 100, stream);
+        //    fs.Flush();
+        //    fs.Close();
+        //}
 
         // <summary>
         // Called automatically whenever an activity finishes
@@ -97,13 +101,13 @@ namespace CameraExample
             image.SetBitmap((Android.Graphics.Bitmap)data.Extras.Get("data"));
 
             // Hopefully saves bitmap to memory
-            SaveBitmap(bitmap);
+           // SaveBitmap(bitmap);
 
             // Sets image on GameView layout
             ImageView takenPic = FindViewById<ImageView>(Resource.Id.gameImage);
-            if (bitmap != null)
+            if (image.CheckBitmap() != null)
             {
-                takenPic.SetImageBitmap(bitmap);
+                takenPic.SetImageBitmap(image.GetBitmap());
             }
 
             // Dispose of the Java side bitmap.

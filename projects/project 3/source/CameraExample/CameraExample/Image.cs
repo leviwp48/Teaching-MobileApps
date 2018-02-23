@@ -26,10 +26,11 @@ namespace CameraExample
              bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(map, 1024, 768, true);
         }
 
-        public void GetBitmap()
+        public Bitmap GetBitmap()
         {
             return bitmap;
         }
+
         
         public bool CheckBitmap()
         {
@@ -48,7 +49,7 @@ namespace CameraExample
             progress = progress + add;
         }
 
-        private string GetWords(int spot)
+        public string GetWords(int spot)
         {
             if(spot > 5)
             {
@@ -58,7 +59,7 @@ namespace CameraExample
             return words[spot];
         }
 
-        protected void GetAPI(object sender, EventArgs e)
+        public void GetAPI()
         {
 
             //convert bitmap into stream to be sent to Google API

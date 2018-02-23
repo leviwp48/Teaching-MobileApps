@@ -34,8 +34,8 @@ namespace CameraExample
 
         private void start_game(object sender, System.EventArgs e)
         {
-            Intent intent = new Intent(VisionGame);
-            StartActivity(VisionGame);
+            Intent intent = new Intent(this, typeof(VisionGame));
+            this.StartActivity(intent);
         }
         //private void send_image(object sender, EventArgs e)
         //{
