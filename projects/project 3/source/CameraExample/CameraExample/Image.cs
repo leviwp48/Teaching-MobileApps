@@ -17,9 +17,30 @@ namespace CameraExample
     {
         private string[] words = new string[] { "Black", "Tree", "Cup", "Phone", "Brown" };
         private int progress = 0;
+        private int lvl = 0;
         public Bitmap bitmap;
         public List<string> tags = new List<string>();
+        bool imageCheck = false;
 
+        public void SubmitPic()
+        {
+            imageCheck = false;
+
+            if (CheckBitmap() == true)
+            {
+                GetAPI();
+            }
+
+            for (int i = 0; i < GetTagsLength(); i++)
+            {
+                if (GetTags(i) == GetWords(word_track))
+                {
+                    imageCheck = true;
+                }
+            }
+
+            UpdatePoints();
+        }
 
         public void SetBitmap(Bitmap map)
         {
@@ -31,6 +52,15 @@ namespace CameraExample
             return bitmap;
         }
 
+        public string GetTags(int place)
+        {
+            return tags[place];
+        }
+
+        public int GetTagsLength()
+        {
+            return tags.Count;
+        }
         
         public bool CheckBitmap()
         {
@@ -43,10 +73,32 @@ namespace CameraExample
                 return false;
             }
         }
-        
-        private void AddProgress(int add)
+
+        public void UpdateLvl()
         {
-            progress = progress + add;
+            if(progress <= 100)
+            {
+                lvl++;
+            }
+        }
+        
+        public void UpdatePoints()
+        {
+            if (imageCheck == true)
+            {
+                progress = progress + 20;
+            }
+            else if (imageCheck == false)
+            {
+                if (progress == 0 || progress < 20)
+                {
+                    progress = 0;
+                }
+                else
+                {
+                    progress = progress - 20;
+                }
+            }
         }
 
         public string GetWords(int spot)

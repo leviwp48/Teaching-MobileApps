@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +20,7 @@ namespace CameraExample
     {
         // Creates Image object
         Image image = new Image();
-        int word_track = 0;
-        
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -39,22 +38,11 @@ namespace CameraExample
                 cam.Click += TakePicture;
             }
 
-          ////  if (// checks if there is an image in cam)
-          //  {
-          //      FindViewById<Button>(Resource.Id.btn_submit).Click += SubmitPic;
-          //  }
+            Button submit = FindViewById<Button>(Resource.Id.btn_submit);
+            submit.Click += image.SubmitPic();
         }
 
-        private void SubmitPic()
-        {
-            if (image.CheckBitmap() == true)
-            {
-                image.GetAPI();
-            }
-
-            //TODO: change progress bar is correct
-            //      change results txt if correct or wrong
-        }
+      
         /// <summary>
         /// Apparently, some android devices do not have a camera.  To guard against this,
         /// we need to make sure that we can take pictures before we actually try to take a picture.
