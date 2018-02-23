@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("DrawingGame.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Vision.Resource", IsApplication=true)]
 
-namespace DrawingGame
+namespace Vision
 {
 	
 	
@@ -41,11 +41,57 @@ namespace DrawingGame
 			}
 		}
 		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f040008
+			public const int btn_game = 2130968584;
+			
+			// aapt resource value: 0x7f040004
+			public const int btn_submit = 2130968580;
+			
+			// aapt resource value: 0x7f040000
+			public const int doneBar = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int gameImage = 2130968578;
+			
+			// aapt resource value: 0x7f040001
+			public const int gameText = 2130968577;
+			
+			// aapt resource value: 0x7f040007
+			public const int launchCameraButton = 2130968583;
+			
+			// aapt resource value: 0x7f040006
+			public const int progressBar1 = 2130968582;
+			
+			// aapt resource value: 0x7f040005
+			public const int resultsText = 2130968581;
+			
+			// aapt resource value: 0x7f040003
+			public const int takePhoto = 2130968579;
+			
+			// aapt resource value: 0x7f040009
+			public const int takenPictureImageView = 2130968585;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
 		public partial class Layout
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Main = 2130837504;
+			public const int GameView = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int Main = 2130837505;
 			
 			static Layout()
 			{

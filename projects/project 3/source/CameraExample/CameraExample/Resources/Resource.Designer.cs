@@ -50,9 +50,6 @@ namespace CameraExample
 			// aapt resource value: 0x7f060004
 			public const int btn_submit = 2131099652;
 			
-			// aapt resource value: 0x7f060003
-			public const int btn_yes = 2131099651;
-			
 			// aapt resource value: 0x7f060000
 			public const int doneBar = 2131099648;
 			
@@ -70,6 +67,9 @@ namespace CameraExample
 			
 			// aapt resource value: 0x7f060005
 			public const int resultsText = 2131099653;
+			
+			// aapt resource value: 0x7f060003
+			public const int takePhoto = 2131099651;
 			
 			// aapt resource value: 0x7f060009
 			public const int takenPictureImageView = 2131099657;

@@ -1,8 +1,8 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -13,7 +13,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace CameraExample
+namespace Vision
 {
     [Activity(Label = "VisionGame")]
     public class VisionGame : Activity
@@ -21,6 +21,7 @@ namespace CameraExample
         // Creates Image object
         Image image = new Image();
         int word_track = 0;
+        bool imageCheck = false;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,20 +34,34 @@ namespace CameraExample
             wordToFind.Text = image.GetWords(word_track);
 
             if (IsThereAnAppToTakePictures() == true)
-            {               
+            {
                 Button cam = FindViewById<Button>(Resource.Id.launchCameraButton);
                 cam.Click += TakePicture;
             }
 
             Button submit = FindViewById<Button>(Resource.Id.btn_submit);
-            submit.Click += image.SubmitPic(word_track);
+            submit.Click += SubmitPic;
 
             ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
             bar.Max = 100;
             bar.Progress = image.GetPoints();
         }
 
-      
+        private void SubmitPic(object sender, System.EventArgs e)
+        {
+            imageCheck = false;
+
+            for (int i = 0; i < image.GetTagsLength(); i++)
+            {
+                if (image.GetTags(i) == image.GetWords(word_track))
+                {
+                    imageCheck = true;
+                }
+            }
+
+            image.UpdatePoints(imageCheck);
+        }
+
         /// <summary>
         /// Apparently, some android devices do not have a camera.  To guard against this,
         /// we need to make sure that we can take pictures before we actually try to take a picture.
@@ -93,7 +108,7 @@ namespace CameraExample
             image.SetBitmap((Android.Graphics.Bitmap)data.Extras.Get("data"));
 
             // Hopefully saves bitmap to memory
-           // SaveBitmap(bitmap);
+            // SaveBitmap(bitmap);
 
             // Sets image on GameView layout
             ImageView takenPic = FindViewById<ImageView>(Resource.Id.gameImage);
@@ -102,7 +117,7 @@ namespace CameraExample
             {
                 takenPic.SetImageBitmap(image.GetBitmap());
             }
-            
+
             //convert bitmap into stream to be sent to Google API
             string bitmapString = "";
             using (var stream = new System.IO.MemoryStream())
@@ -166,14 +181,14 @@ namespace CameraExample
 
             Finish();
         }
-            
-        
 
-       
+
+
+
 
         protected void onStart()
         {
-        
+
         }
 
         protected void onRestart()
@@ -183,22 +198,22 @@ namespace CameraExample
 
         protected void onResume()
         {
-        
+
         }
 
         protected void onPause()
         {
-        
+
         }
 
         protected void onStop()
         {
-        
+
         }
 
         protected void onDestroy()
         {
-        
+
         }
     }
 }
