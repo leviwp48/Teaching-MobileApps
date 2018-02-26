@@ -37,23 +37,15 @@ namespace CameraExample
             //TextView output = FindViewById<TextView>(Resource.Id.gameText);
             //output.Text = question;
 
-            if (IsThereAnAppToTakePictures() == true)
-            {               
-                Button cam = FindViewById<Button>(Resource.Id.launchCameraButton);
-                cam.Click += TakePicture;
-            }
+            Button cam = FindViewById<Button>(Resource.Id.takePhoto);
+            cam.Click += TakePicture;
 
             Button submit = FindViewById<Button>(Resource.Id.btn_submit);
             submit.Click += SubmitPic;
 
-            ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
-            bar.Max = 100;
-            bar.Progress = image.GetPoints();
+           
 
-            ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);
-            lvlBar.Max = 5;
-            lvlBar.Progress = image.GetLvl();
-
+           
         }
 
         private void SubmitPic(object sender, System.EventArgs e)
@@ -67,8 +59,14 @@ namespace CameraExample
                     imageCheck = true;
                 }
             }
-
             image.UpdatePoints(imageCheck);
+
+            ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);          
+            bar.Progress = image.GetPoints();
+
+            ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);           
+            lvlBar.Progress = image.GetLvl();
+
         }
 
         /// <summary>
@@ -88,8 +86,13 @@ namespace CameraExample
         // Intent to take a picture
         private void TakePicture(object sender, System.EventArgs e)
         {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            StartActivityForResult(intent, 0);
+           
+
+            if (IsThereAnAppToTakePictures() == true)
+            {
+                Intent intent = new Intent(MediaStore.ActionImageCapture);
+                StartActivityForResult(intent, 0);
+            }
         }
 
         // Hopefully saves the bitmap
@@ -185,7 +188,7 @@ namespace CameraExample
             // Dispose of the Java side bitmap.
             System.GC.Collect();
 
-            Finish();
+            
         }
             
         

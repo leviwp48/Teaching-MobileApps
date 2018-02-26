@@ -15,7 +15,7 @@ namespace CameraExample
 {
     public class Image
     {
-        private string[] words = new string[] { "Black", "Tree", "Cup", "Phone", "Brown" };
+        private string[] words = new string[] { "Games", "Tree", "Cup", "Phone", "Brown" };
         private int progress = 0;
         private int lvl = 0;
         public Bitmap bitmap;
