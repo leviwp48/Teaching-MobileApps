@@ -3,7 +3,8 @@
 
 Vision
 ======
-Vision is a game for camera fanatics. 
+Vision is a game for camera fanatics who like to play a game here and there. In this game the player is asked to snap photos within certain categories. For each photo that matches the category the player receives points. Vice versa, for any photos that don't match, the player loses points. If the player obtains enough points they will advance a level. The goal of the game is to gain enough points to complete every level. 
+
 
 Complete description and overview.  This is where you describe in a brief, yet clear and concise, manner what your product should do and how you expect it should be used.  Why did you write this application?  What purpose does it serve?  It's okay if the only purpose is to meet the homework requirement (but try to move bedyond just that - be creative!).
 
@@ -23,7 +24,7 @@ Usage
 =====
 1. Open the App
 2. Press the **Begin Game** button
-3. Now you are at the main screen. Here, from top to bottom:
+3. Now you are at the main screen. 1) Here, from top to bottom: 
                                                              *there is a level bar (There are 5 levels), 
                                                              *requested picture category, 
                                                              *an imgage view, 
