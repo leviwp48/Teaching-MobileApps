@@ -20,7 +20,7 @@ namespace CameraExample
     {
         // Creates Image object
         Image image = new Image();
-        int word_track = 0;
+        int _word_track = 0;
         bool imageCheck = false;
         
         protected override void OnCreate(Bundle savedInstanceState)
@@ -32,29 +32,58 @@ namespace CameraExample
             // TODO: Make text change when progress bar fills up.
             TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
             //make method to grab word
-            wordToFind.Text = string.Format("Take pictures of this category {0}.", image.GetWords(word_track));
+            wordToFind.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
             //string question = string.Format("is this (a(n)) {0}?", tags[0]);
             //TextView output = FindViewById<TextView>(Resource.Id.gameText);
             //output.Text = question;
-
+       
             Button cam = FindViewById<Button>(Resource.Id.takePhoto);
             cam.Click += TakePicture;
 
             Button submit = FindViewById<Button>(Resource.Id.btn_submit);
             submit.Click += SubmitPic;
 
-           
+            if (image.GetLvl() == 5)
+            {
+                SetContentView(Resource.Layout.Finish);
 
-           
+                ImageView last_image = FindViewById<ImageView>(Resource.Id.last_pic);
+                TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
+
+                last_word.Text = string.Format("This is a: {0}", (image.GetWords(0)));
+                last_image.SetImageBitmap(image.GetBitmap());
+            }
+        }
+
+        public void wordChange()
+        {
+            // TODO: Make text change when progress bar fills up.
+            TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
+            //make method to grab word
+            wordToFind.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
+        }
+        public int WordTrack
+        {
+            get { return _word_track; }
+            set
+            {
+                _word_track = value;
+                if (_word_track == 1)
+                {
+                    wordChange();
+                }
+            }
         }
 
         private void SubmitPic(object sender, System.EventArgs e)
         {
+            TextView wordToFind = FindViewById<TextView>(Resource.Id.resultsText);
+
             imageCheck = false;
 
             for (int i = 0; i < image.GetTagsLength(); i++)
             {
-                if (image.GetTags(i) == image.GetWords(word_track))
+                if (image.GetTags(i) == image.GetWords(_word_track))
                 {
                     imageCheck = true;
                 }
@@ -67,6 +96,29 @@ namespace CameraExample
             ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);           
             lvlBar.Progress = image.GetLvl();
 
+            if (image.GetDone() == true)
+            {
+                WordTrack++;
+            }
+
+            if (imageCheck == false)
+            {
+                wordToFind.Text = ("Fail");
+            }
+            else
+            {
+                wordToFind.Text = ("Success");
+            }
+            
+            if(image.GetLvl() == 5)
+            {
+                SetContentView(Resource.Layout.Finish);
+
+                Button last_btn = FindViewById<Button>(Resource.Id.btn_last);
+                TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
+
+                last_word.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
+            }
         }
 
         /// <summary>
@@ -85,9 +137,7 @@ namespace CameraExample
 
         // Intent to take a picture
         private void TakePicture(object sender, System.EventArgs e)
-        {
-           
-
+        {           
             if (IsThereAnAppToTakePictures() == true)
             {
                 Intent intent = new Intent(MediaStore.ActionImageCapture);
@@ -184,7 +234,9 @@ namespace CameraExample
             }
 
             image.SetTags(details);
+            
            
+
             // Dispose of the Java side bitmap.
             System.GC.Collect();
 
