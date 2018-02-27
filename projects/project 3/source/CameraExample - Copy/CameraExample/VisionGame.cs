@@ -47,6 +47,10 @@ namespace CameraExample
             {
                 SetContentView(Resource.Layout.Finish);
 
+
+                Button final_cam = FindViewById<Button>(Resource.Id.btn_last);
+                final_cam.Click += TakePicture;
+
                 ImageView last_image = FindViewById<ImageView>(Resource.Id.last_pic);
                 TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
 
@@ -96,10 +100,10 @@ namespace CameraExample
             ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);           
             lvlBar.Progress = image.GetLvl();
 
-            if (image.GetDone() == true)
-            {
-                WordTrack++;
-            }
+            //if (image.GetDone() == true)
+            //{
+            //    WordTrack++;
+            //}
 
             if (imageCheck == false)
             {
@@ -117,7 +121,7 @@ namespace CameraExample
                 Button last_btn = FindViewById<Button>(Resource.Id.btn_last);
                 TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
 
-                last_word.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
+                last_word.Text = "Take a Selfie";
             }
         }
 
