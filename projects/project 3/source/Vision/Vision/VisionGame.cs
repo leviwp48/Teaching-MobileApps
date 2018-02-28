@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Android;
+
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -20,7 +20,7 @@ namespace Vision
     {
         // Creates Image object
         Image image = new Image();
-        int word_track = 0;
+        int _word_track = 0;
         bool imageCheck = false;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -31,35 +31,101 @@ namespace Vision
             // TODO: Make text change when progress bar fills up.
             TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
             //make method to grab word
-            wordToFind.Text = image.GetWords(word_track);
+            wordToFind.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
+            //string question = string.Format("is this (a(n)) {0}?", tags[0]);
+            //TextView output = FindViewById<TextView>(Resource.Id.gameText);
+            //output.Text = question;
 
-            if (IsThereAnAppToTakePictures() == true)
-            {
-                Button cam = FindViewById<Button>(Resource.Id.launchCameraButton);
-                cam.Click += TakePicture;
-            }
+            Button cam = FindViewById<Button>(Resource.Id.takePhoto);
+            cam.Click += TakePicture;
 
             Button submit = FindViewById<Button>(Resource.Id.btn_submit);
             submit.Click += SubmitPic;
+        }
 
-            ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
-            bar.Max = 100;
-            bar.Progress = image.GetPoints();
+        public void replay(object sender, System.EventArgs e)
+        {
+            SetContentView(Resource.Layout.GameView);
+        }
+        public void end(object sender, System.EventArgs e) => Finish();
+
+        public void wordChange()
+        {
+            // TODO: Make text change when progress bar fills up.
+            TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
+            //make method to grab word
+            wordToFind.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
+        }
+        
+        // property to increment through categories
+        public int WordTrack
+        {
+            get { return _word_track; }
+            set
+            {
+                _word_track = value;
+                if (_word_track == value)
+                {
+                    wordChange();
+                }
+            }
         }
 
         private void SubmitPic(object sender, System.EventArgs e)
         {
+            TextView wordToFind = FindViewById<TextView>(Resource.Id.resultsText);
+
+            // keeps track of if the image is correct
             imageCheck = false;
 
             for (int i = 0; i < image.GetTagsLength(); i++)
             {
-                if (image.GetTags(i) == image.GetWords(word_track))
+                if (image.GetTags(i) == image.GetWords(_word_track))
                 {
                     imageCheck = true;
                 }
             }
 
+            // adjusts points depending on if we have the right image
             image.UpdatePoints(imageCheck);
+
+            ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
+            bar.Progress = image.GetPoints();
+
+            ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);
+            lvlBar.Progress = image.GetLvl();
+
+            if (image.GetDone() == true)
+            {
+                if (image.GetLvl() < 5)
+                {
+                    WordTrack++;
+                }
+            }
+
+            // sends message on picture result
+            if (imageCheck == false)
+            {
+                wordToFind.Text = string.Format("Sorry it's not a {0}", (image.GetWords(WordTrack)));
+            }
+            else
+            {
+                wordToFind.Text = string.Format("Success it's a {0}!", (image.GetWords(WordTrack)));
+            }
+
+            // goes to final screen
+            if (image.GetLvl() == 5)
+            {
+                SetContentView(Resource.Layout.Finish);
+
+                // returns to game view
+                Button restart = FindViewById<Button>(Resource.Id.btn_replay);
+                restart.Click += replay;
+
+                // returns to beginning app view
+                Button exit = FindViewById<Button>(Resource.Id.btn_exit);
+                exit.Click += end;
+            }
         }
 
         /// <summary>
@@ -79,20 +145,12 @@ namespace Vision
         // Intent to take a picture
         private void TakePicture(object sender, System.EventArgs e)
         {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            StartActivityForResult(intent, 0);
+            if (IsThereAnAppToTakePictures() == true)
+            {
+                Intent intent = new Intent(MediaStore.ActionImageCapture);
+                StartActivityForResult(intent, 0);
+            }
         }
-
-        // Hopefully saves the bitmap
-        //private void SaveBitmap(Bitmap map)
-        //{
-        //    System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
-        //    map.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
-        //    var stream = new FileStream(filePath, FileMode.Create);
-        //    map.Compress(Bitmap.CompressFormat.Png, 100, stream);
-        //    fs.Flush();
-        //    fs.Close();
-        //}
 
         // <summary>
         // Called automatically whenever an activity finishes
@@ -171,49 +229,11 @@ namespace Vision
                 details.Add(item.Description);
             }
 
+            // Sets tags in image object
             image.SetTags(details);
-            //string question = string.Format("is this (a(n)) {0}?", tags[0]);
-            //TextView output = FindViewById<TextView>(Resource.Id.gameText);
-            //output.Text = question;
 
             // Dispose of the Java side bitmap.
             System.GC.Collect();
-
-            Finish();
-        }
-
-
-
-
-
-        protected void onStart()
-        {
-
-        }
-
-        protected void onRestart()
-        {
-
-        }
-
-        protected void onResume()
-        {
-
-        }
-
-        protected void onPause()
-        {
-
-        }
-
-        protected void onStop()
-        {
-
-        }
-
-        protected void onDestroy()
-        {
-
         }
     }
 }

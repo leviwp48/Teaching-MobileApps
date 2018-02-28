@@ -11,28 +11,29 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 
+
 namespace Vision
 {
     public class Image
     {
-        private string[] words = new string[] { "Black", "Tree", "Cup", "Phone", "Brown" };
+        private string[] words = new string[] { "games", "pattern", "black and white", "chess", "square" };
         private int progress = 0;
         private int lvl = 0;
         public Bitmap bitmap;
         public List<string> tags = new List<string>();
-        
+        private bool done;
 
-        public int SetTags(List<string> tag_list)
+        public void SetTags(List<string> tag_list)
         {
             tags = tag_list;
-            return 0;
         }
-        
+
 
         public int GetPoints()
         {
             return progress;
         }
+
         public void SetBitmap(Bitmap map)
         {
             bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(map, 1024, 768, true);
@@ -41,6 +42,11 @@ namespace Vision
         public Bitmap GetBitmap()
         {
             return bitmap;
+        }
+
+        public bool GetDone()
+        {
+            return done;
         }
 
         public string GetTags(int place)
@@ -65,13 +71,27 @@ namespace Vision
             }
         }
 
+        public int GetLvl()
+        {
+            return lvl;
+        }
+
         public void UpdatePoints(bool imageCheck)
         {
+            done = false;
+
             if (imageCheck == true)
             {
                 progress = progress + 20;
+
+                if (progress >= 100)
+                {
+                    done = true;
+                    lvl++;
+                    progress = 0;
+                }
             }
-            else if (imageCheck == false)
+            else
             {
                 if (progress == 0 || progress < 20)
                 {
@@ -81,12 +101,6 @@ namespace Vision
                 {
                     progress = progress - 20;
                 }
-            }
-
-            if (progress <= 100)
-            {
-                lvl++;
-                progress = 0;
             }
         }
 
@@ -99,9 +113,5 @@ namespace Vision
 
             return words[spot];
         }
-
-
-
-
     }
 }

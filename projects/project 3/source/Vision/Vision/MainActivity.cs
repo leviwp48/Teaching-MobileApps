@@ -9,15 +9,10 @@ using Android.Graphics;
 using System;
 using System.IO;
 
-/*
- TODO: 
-    Get bitmap data to move to activity
-    Get game to use camera button
-    Get progress bar working
-*/
+
 namespace Vision
 {
-    [Activity(Label = "Vision", MainLauncher = true, Icon = "@mipmap/icon")]
+    [Activity(Label = "MainActivity", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,8 +23,6 @@ namespace Vision
             SetContentView(Resource.Layout.Main);
 
             FindViewById<Button>(Resource.Id.btn_game).Click += start_game;
-
-            // FindViewById<Button>(Resource.Id.btn_game).Click += send_image;
         }
 
         private void start_game(object sender, System.EventArgs e)
@@ -37,14 +30,5 @@ namespace Vision
             Intent intent = new Intent(this, typeof(VisionGame));
             this.StartActivity(intent);
         }
-        //private void send_image(object sender, EventArgs e)
-        //{
-        //    Intent send_data = new Intent(this, typeof(VisionGame));
-        //    Bundle extras = new Bundle();
-        //    extras.PutParcelable("Image", copy_bitmap);
-        //    send_data.PutExtras("map", bitmap);
-        //    this.StartActivity(send_data);
-        //}     
     }
 }
-
