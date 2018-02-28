@@ -25,16 +25,16 @@ Usage
 1. Open the App
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Open%20View.png"
      alt="Beginning Page"
-      />
+      style="float: bottom;"/>
      
 2. Press the **Begin Game** button
 
 3. Now you are at the main screen. 
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Game%20Layout.png"
      alt="Main Screen"
-     style="float: left;" />
+     style="float: bottom;" />
      
-1) Here, from top to bottom: 
+Here, from top to bottom: 
         *there is a level bar (There are 5 levels), 
         *requested picture category, 
         *an imgage view, 
