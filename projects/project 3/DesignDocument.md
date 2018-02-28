@@ -9,7 +9,7 @@ System Design
 =============
 
 ### System Requirements
-1. 7.0 and above
+1. 7.1 and above
 2. Android System
 3. Camera
 4. Internet Connection
