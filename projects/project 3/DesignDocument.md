@@ -48,14 +48,14 @@ Here, from top to bottom:
 </p>
 
 5. Here you will see your image. Next hit the **Submit** button, this will analyze your image, send results to the text box, and adjust    your points and level. 
-   *Adding Points 
+**Adding Points** 
 <p align="center">
    <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/After%20Submit.png"
      width="300"
      height="500" />
  </p>
     
-   *Changing Levels 
+**Changing Levels** 
 <p align="center">
    <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Level%20Change.png"
      width="300"
