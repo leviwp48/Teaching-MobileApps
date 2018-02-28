@@ -25,14 +25,14 @@ Usage
 1. Open the App
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Open%20View.png"
      alt="Beginning Page"
-     style="float: left; margin-right: 5px;" />
+     style="float: left;" />
      
 2. Press the **Begin Game** button
 
 3. Now you are at the main screen. 
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Game%20Layout.png"
-     alt="Beginning Page"
-     style="float: left; margin-right: 5px;" />
+     alt="Main Screen"
+     style="float: left;" />
      
 1) Here, from top to bottom: 
         *there is a level bar (There are 5 levels), 
@@ -43,23 +43,23 @@ Usage
                                                            
 4. Pressing the **Take Photo** button will will take you to your default camera app. Where you may snap of a photo of anything you like.    After accepting your photo you will be taken back to the main screen. 
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Accept%20Image.png"
-     alt="Beginning Page"
-     style="float: left; margin-right: 5px;" />
+     alt="Camera"
+     style="float: left;" />
 
 5. Here you will see your image. Next hit the **Submit** button, this will analyze your image, send results to the text box, and adjust    your points and level. 
    *Adding Points 
    <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/After%20Submit.png"
-     alt="Beginning Page"
-     style="float: left; margin-right: 5px;" />
+     alt="After Submit"
+     style="float: left;" />
     
    *Changing Levels 
    <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Level%20Change.png"
-     alt="Beginning Page"
-     style="float: left; margin-right: 5px;" />
+     alt="Level Change"
+     style="float: left; " />
    
 6. Continue this process until you have passed all 5 levels and beaten the game. 
 7. Finishing the game will take you to the last screen where you may replay the game or exit the game. 
  <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Final%20view.png"
-     alt="Beginning Page"
+     alt="Final"
      style="float: left; margin-right: 5px;" />
 
