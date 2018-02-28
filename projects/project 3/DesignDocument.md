@@ -20,8 +20,8 @@ Usage
 1. Open the App
 <p align="center">
      <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20 %20Copy/Design%20Pictures/Open%20View.png"
-      width="100"
-      height="200"/>
+      width="300"
+      height="400"/>
 </p>
      
 2. Press the **Begin Game** button
@@ -29,8 +29,8 @@ Usage
 3. Now you are at the main screen. 
 <p align="center">
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Game%20Layout.png"
-     width="100"
-     height="200"/>
+     width="300"
+     height="400"/>
 </p>
      
 Here, from top to bottom: 
