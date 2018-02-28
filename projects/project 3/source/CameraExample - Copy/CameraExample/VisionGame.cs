@@ -47,17 +47,19 @@ namespace CameraExample
             {
                 SetContentView(Resource.Layout.Finish);
 
+                Button restart = FindViewById<Button>(Resource.Id.btn_replay);
+                restart.Click += replay;
 
-                Button final_cam = FindViewById<Button>(Resource.Id.btn_last);
-                final_cam.Click += TakePicture;
-
-                ImageView last_image = FindViewById<ImageView>(Resource.Id.last_pic);
-                TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
-
-                last_word.Text = string.Format("This is a: {0}", (image.GetWords(0)));
-                last_image.SetImageBitmap(image.GetBitmap());
+                Button exit = FindViewById<Button>(Resource.Id.btn_exit);
+                exit.Click += end;
             }
         }
+
+        public void replay(object sender, System.EventArgs e)
+        {
+            SetContentView(Resource.Layout.GameView);
+        }
+        public void end(object sender, System.EventArgs e) => Finish();
 
         public void wordChange()
         {
@@ -100,10 +102,13 @@ namespace CameraExample
             ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);           
             lvlBar.Progress = image.GetLvl();
 
-            //if (image.GetDone() == true)
-            //{
-            //    WordTrack++;
-            //}
+            if (image.GetDone() == true)
+            {
+                if (image.GetLvl() < 5)
+                {
+                    WordTrack++;
+                }
+            }
 
             if (imageCheck == false)
             {
@@ -112,16 +117,6 @@ namespace CameraExample
             else
             {
                 wordToFind.Text = ("Success");
-            }
-            
-            if(image.GetLvl() == 5)
-            {
-                SetContentView(Resource.Layout.Finish);
-
-                Button last_btn = FindViewById<Button>(Resource.Id.btn_last);
-                TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
-
-                last_word.Text = "Take a Selfie";
             }
         }
 
