@@ -23,7 +23,7 @@ This is where you specify all of the system's requirements.  This section should
 Usage
 =====
 1. Open the App
-<img src="Open View.png"
+<img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Open%20View.png"
      alt="Beginning Page"
      style="float: left; margin-right: 10px;" />
 2. Press the **Begin Game** button
