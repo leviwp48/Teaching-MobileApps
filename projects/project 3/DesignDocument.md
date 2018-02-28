@@ -47,11 +47,13 @@ Usage
      style="float: left; margin-right: 5px;" />
 
 5. Here you will see your image. Next hit the **Submit** button, this will analyze your image, send results to the text box, and adjust    your points and level. 
-   *Adding Points <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/After%20Submit.png"
+   *Adding Points 
+   <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/After%20Submit.png"
      alt="Beginning Page"
      style="float: left; margin-right: 5px;" />
     
-   *Changing Levels <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Level%20Change.png"
+   *Changing Levels 
+   <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Level%20Change.png"
      alt="Beginning Page"
      style="float: left; margin-right: 5px;" />
    
