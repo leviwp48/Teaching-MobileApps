@@ -18,10 +18,11 @@ System Design
 Usage
 =====
 1. Open the App
-<img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Open%20View.png"
-     alt="Beginning Page"
+<p align="center">
+     <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-                                %20Copy/Design%20Pictures/Open%20View.png"
       width="100"
       height="200"/>
+</p>
      
 2. Press the **Begin Game** button
 
