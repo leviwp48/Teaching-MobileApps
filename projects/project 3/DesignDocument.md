@@ -19,7 +19,7 @@ Usage
 =====
 1. Open the App
 <p align="center">
-     <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20 %20Copy/Design%20Pictures/Open%20View.png"
+     <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Open%20View.png"
       width="300"
       height="400"/>
 </p>
