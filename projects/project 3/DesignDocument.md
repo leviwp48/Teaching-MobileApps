@@ -34,11 +34,11 @@ Usage
 </p>
      
 Here, from top to bottom: 
-        *there is a level bar (There are 5 levels), 
-        *requested picture category, 
-        *an imgage view, 
-        *results text box,
-        *and a point bar (Out of 100). 
+* there is a level bar (There are 5 levels)
+* requested picture category
+* an imgage view 
+* results text box
+* and a point bar (Out of 100) 
                                                            
 4. Pressing the **Take Photo** button will will take you to your default camera app. Where you may snap of a photo of anything you like.    After accepting your photo you will be taken back to the main screen. 
 <p align="center">
