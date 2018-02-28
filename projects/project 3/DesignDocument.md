@@ -23,6 +23,9 @@ This is where you specify all of the system's requirements.  This section should
 Usage
 =====
 1. Open the App
+<img src="Open View.png"
+     alt="Beginning Page"
+     style="float: left; margin-right: 10px;" />
 2. Press the **Begin Game** button
 3. Now you are at the main screen. 1) Here, from top to bottom: 
                                                              *there is a level bar (There are 5 levels), 
