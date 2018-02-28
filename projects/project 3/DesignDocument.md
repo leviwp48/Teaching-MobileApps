@@ -1,5 +1,6 @@
 # Created By: Levi Pole
 # Last Modified: 2/26/18
+-- The projec is named CameraExample, but I wanted it to be Vision. I couldn't figure out how to properly change the name. 
 
 Vision
 ======
