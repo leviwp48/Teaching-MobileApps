@@ -19,7 +19,7 @@ Usage
 =====
 1. Open the App
 <p align="center">
-     <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-                                %20Copy/Design%20Pictures/Open%20View.png"
+     <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20 %20Copy/Design%20Pictures/Open%20View.png"
       width="100"
       height="200"/>
 </p>
@@ -27,9 +27,11 @@ Usage
 2. Press the **Begin Game** button
 
 3. Now you are at the main screen. 
+<p align="center">
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Game%20Layout.png"
-     alt="Main Screen"
-     style="float: bottom;" />
+     width="100"
+     height="200"/>
+</p>
      
 Here, from top to bottom: 
         *there is a level bar (There are 5 levels), 
@@ -39,9 +41,11 @@ Here, from top to bottom:
         *and a point bar (Out of 100). 
                                                            
 4. Pressing the **Take Photo** button will will take you to your default camera app. Where you may snap of a photo of anything you like.    After accepting your photo you will be taken back to the main screen. 
+<p>
 <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Accept%20Image.png"
-     alt="Camera"
-     style="float: left;" />
+     width="100"
+     height="200"/>
+</p>
 
 5. Here you will see your image. Next hit the **Submit** button, this will analyze your image, send results to the text box, and adjust    your points and level. 
    *Adding Points 
