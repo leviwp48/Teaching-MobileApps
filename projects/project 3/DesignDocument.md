@@ -5,20 +5,14 @@ Vision
 ======
 Vision is a game for camera fanatics who like to play a game here and there. In this game the player is asked to snap photos within certain categories. For each photo that matches the category the player receives points. Vice versa, for any photos that don't match, the player loses points. If the player obtains enough points they will advance a level. The goal of the game is to gain enough points to complete every level. 
 
-
-Complete description and overview.  This is where you describe in a brief, yet clear and concise, manner what your product should do and how you expect it should be used.  Why did you write this application?  What purpose does it serve?  It's okay if the only purpose is to meet the homework requirement (but try to move bedyond just that - be creative!).
-
 System Design
 =============
 
 ### System Requirements
-1. 7.11 and above
+1. 7.0 and above
 2. Android System
 3. Camera
 4. Internet Connection
-
--- try to take screenshots in class. 
-This is where you specify all of the system's requirements.  This section should accurately portray the complete operation of your application.  Provide scenarios, use cases, system requirements, and diagrams/screenshots of the system.
 
 Usage
 =====
