@@ -15,11 +15,12 @@ namespace CameraExample
 {
     public class Image
     {
-        private string[] words = new string[] { "Black", "Tree", "Cup", "Phone", "Brown" };
+        private string[] words = new string[] { "games", "pattern", "black and white", "chess", "square" };
         private int progress = 0;
         private int lvl = 0;
         public Bitmap bitmap;
         public List<string> tags = new List<string>();
+        private bool done;
 
         public void SetTags(List<string> tag_list)
         {
@@ -30,7 +31,8 @@ namespace CameraExample
         public int GetPoints()
         {
             return progress;
-        }
+        }            
+
         public void SetBitmap(Bitmap map)
         {
              bitmap = Android.Graphics.Bitmap.CreateScaledBitmap(map, 1024, 768, true);
@@ -39,6 +41,11 @@ namespace CameraExample
         public Bitmap GetBitmap()
         {
             return bitmap;
+        }
+    
+        public bool GetDone()
+        {
+            return done;
         }
 
         public string GetTags(int place)
@@ -70,17 +77,20 @@ namespace CameraExample
 
         public void UpdatePoints(bool imageCheck)
         {
+            done = false; 
+
             if (imageCheck == true)
             {              
                 progress = progress + 20;
 
-                if (progress <= 100)
+                if (progress >= 100)
                 {
+                    done = true; 
                     lvl++;
                     progress = 0;
                 }
             }
-            else if (imageCheck == false)
+            else 
             {
                 if (progress == 0 || progress < 20)
                 {
