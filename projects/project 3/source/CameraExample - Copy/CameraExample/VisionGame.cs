@@ -18,11 +18,11 @@ namespace CameraExample
     [Activity(Label = "VisionGame")]
     public class VisionGame : Activity
     {
-        // Creates Image object
+       
+        // Creates an image object
         Image image = new Image();
         int _word_track = 0;
         bool imageCheck = false;
-        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -36,28 +36,19 @@ namespace CameraExample
             //string question = string.Format("is this (a(n)) {0}?", tags[0]);
             //TextView output = FindViewById<TextView>(Resource.Id.gameText);
             //output.Text = question;
-       
+
             Button cam = FindViewById<Button>(Resource.Id.takePhoto);
             cam.Click += TakePicture;
 
             Button submit = FindViewById<Button>(Resource.Id.btn_submit);
             submit.Click += SubmitPic;
-
-            if (image.GetLvl() == 5)
-            {
-                SetContentView(Resource.Layout.Finish);
-
-
-                Button final_cam = FindViewById<Button>(Resource.Id.btn_last);
-                final_cam.Click += TakePicture;
-
-                ImageView last_image = FindViewById<ImageView>(Resource.Id.last_pic);
-                TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
-
-                last_word.Text = string.Format("This is a: {0}", (image.GetWords(0)));
-                last_image.SetImageBitmap(image.GetBitmap());
-            }
         }
+
+        public void replay(object sender, System.EventArgs e)
+        {
+            SetContentView(Resource.Layout.GameView);
+        }
+        public void end(object sender, System.EventArgs e) => Finish();
 
         public void wordChange()
         {
@@ -66,13 +57,15 @@ namespace CameraExample
             //make method to grab word
             wordToFind.Text = string.Format("Category: {0}", (image.GetWords(WordTrack)));
         }
+
+        // property to increment through categories
         public int WordTrack
         {
             get { return _word_track; }
             set
             {
                 _word_track = value;
-                if (_word_track == 1)
+                if (_word_track == value)
                 {
                     wordChange();
                 }
@@ -83,6 +76,7 @@ namespace CameraExample
         {
             TextView wordToFind = FindViewById<TextView>(Resource.Id.resultsText);
 
+            // keeps track of if the image is correct
             imageCheck = false;
 
             for (int i = 0; i < image.GetTagsLength(); i++)
@@ -92,36 +86,46 @@ namespace CameraExample
                     imageCheck = true;
                 }
             }
+
+            // adjusts points depending on if we have the right image
             image.UpdatePoints(imageCheck);
 
-            ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);          
+            ProgressBar bar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
             bar.Progress = image.GetPoints();
 
-            ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);           
+            ProgressBar lvlBar = FindViewById<ProgressBar>(Resource.Id.doneBar);
             lvlBar.Progress = image.GetLvl();
 
-            //if (image.GetDone() == true)
-            //{
-            //    WordTrack++;
-            //}
+            if (image.GetDone() == true)
+            {
+                if (image.GetLvl() < 5)
+                {
+                    WordTrack++;
+                }
+            }
 
+            // sends message on picture result
             if (imageCheck == false)
             {
-                wordToFind.Text = ("Fail");
+                wordToFind.Text = string.Format("Sorry it's not a {0}", (image.GetWords(WordTrack)));
             }
             else
             {
-                wordToFind.Text = ("Success");
+                wordToFind.Text = string.Format("Success it's a {0}!", (image.GetWords(WordTrack)));
             }
-            
-            if(image.GetLvl() == 5)
+
+            // goes to final screen
+            if (image.GetLvl() == 5)
             {
                 SetContentView(Resource.Layout.Finish);
 
-                Button last_btn = FindViewById<Button>(Resource.Id.btn_last);
-                TextView last_word = FindViewById<TextView>(Resource.Id.last_text);
+                // returns to game view
+                Button restart = FindViewById<Button>(Resource.Id.btn_replay);
+                restart.Click += replay;
 
-                last_word.Text = "Take a Selfie";
+                // returns to beginning app view
+                Button exit = FindViewById<Button>(Resource.Id.btn_exit);
+                exit.Click += end;
             }
         }
 
@@ -141,24 +145,13 @@ namespace CameraExample
 
         // Intent to take a picture
         private void TakePicture(object sender, System.EventArgs e)
-        {           
+        {
             if (IsThereAnAppToTakePictures() == true)
             {
                 Intent intent = new Intent(MediaStore.ActionImageCapture);
                 StartActivityForResult(intent, 0);
             }
         }
-
-        // Hopefully saves the bitmap
-        //private void SaveBitmap(Bitmap map)
-        //{
-        //    System.IO.FileStream fs = new System.IO.FileStream(_file.Path, System.IO.FileMode.OpenOrCreate);
-        //    map.Compress(Android.Graphics.Bitmap.CompressFormat.Jpeg, 85, fs);
-        //    var stream = new FileStream(filePath, FileMode.Create);
-        //    map.Compress(Bitmap.CompressFormat.Png, 100, stream);
-        //    fs.Flush();
-        //    fs.Close();
-        //}
 
         // <summary>
         // Called automatically whenever an activity finishes
@@ -174,7 +167,7 @@ namespace CameraExample
             image.SetBitmap((Android.Graphics.Bitmap)data.Extras.Get("data"));
 
             // Hopefully saves bitmap to memory
-           // SaveBitmap(bitmap);
+            // SaveBitmap(bitmap);
 
             // Sets image on GameView layout
             ImageView takenPic = FindViewById<ImageView>(Resource.Id.gameImage);
@@ -183,7 +176,7 @@ namespace CameraExample
             {
                 takenPic.SetImageBitmap(image.GetBitmap());
             }
-            
+
             //convert bitmap into stream to be sent to Google API
             string bitmapString = "";
             using (var stream = new System.IO.MemoryStream())
@@ -237,48 +230,13 @@ namespace CameraExample
                 details.Add(item.Description);
             }
 
+            // Sets tags in image object
             image.SetTags(details);
-            
-           
 
             // Dispose of the Java side bitmap.
             System.GC.Collect();
-
-            
-        }
-            
-        
-
-       
-
-        protected void onStart()
-        {
-        
-        }
-
-        protected void onRestart()
-        {
-
-        }
-
-        protected void onResume()
-        {
-        
-        }
-
-        protected void onPause()
-        {
-        
-        }
-
-        protected void onStop()
-        {
-        
-        }
-
-        protected void onDestroy()
-        {
-        
         }
     }
 }
+
+

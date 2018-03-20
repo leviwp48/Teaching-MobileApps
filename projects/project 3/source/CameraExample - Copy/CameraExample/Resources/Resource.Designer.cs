@@ -44,11 +44,14 @@ namespace CameraExample
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060001
+			public const int btn_exit = 2131099649;
+			
 			// aapt resource value: 0x7f06000a
 			public const int btn_game = 2131099658;
 			
 			// aapt resource value: 0x7f060002
-			public const int btn_last = 2131099650;
+			public const int btn_replay = 2131099650;
 			
 			// aapt resource value: 0x7f060007
 			public const int btn_submit = 2131099655;
@@ -61,9 +64,6 @@ namespace CameraExample
 			
 			// aapt resource value: 0x7f060004
 			public const int gameText = 2131099652;
-			
-			// aapt resource value: 0x7f060001
-			public const int last_pic = 2131099649;
 			
 			// aapt resource value: 0x7f060000
 			public const int last_text = 2131099648;

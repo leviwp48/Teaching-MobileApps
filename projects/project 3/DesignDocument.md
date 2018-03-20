@@ -1,39 +1,72 @@
 # Created By: Levi Pole
 # Last Modified: 2/26/18
+-- The project is named CameraExample, but I wanted it to be Vision. I couldn't figure out how to properly change the name. 
 
 Vision
 ======
 Vision is a game for camera fanatics who like to play a game here and there. In this game the player is asked to snap photos within certain categories. For each photo that matches the category the player receives points. Vice versa, for any photos that don't match, the player loses points. If the player obtains enough points they will advance a level. The goal of the game is to gain enough points to complete every level. 
 
-
-Complete description and overview.  This is where you describe in a brief, yet clear and concise, manner what your product should do and how you expect it should be used.  Why did you write this application?  What purpose does it serve?  It's okay if the only purpose is to meet the homework requirement (but try to move bedyond just that - be creative!).
-
 System Design
 =============
 
 ### System Requirements
-1. 7.11 and above
+1. 7.1 and above
 2. Android System
 3. Camera
 4. Internet Connection
 
--- try to take screenshots in class. 
-This is where you specify all of the system's requirements.  This section should accurately portray the complete operation of your application.  Provide scenarios, use cases, system requirements, and diagrams/screenshots of the system.
-
 Usage
 =====
 1. Open the App
+<p align="center">
+     <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Open%20View.png"
+      width="300"
+      height="500"/>
+</p>
+     
 2. Press the **Begin Game** button
-3. Now you are at the main screen. 1) Here, from top to bottom: 
-                                                             *there is a level bar (There are 5 levels), 
-                                                             *requested picture category, 
-                                                             *an imgage view, 
-                                                             *results text box,
-                                                             *and a point bar (Out of 100). 
+
+3. Now you are at the main screen. 
+<p align="center">
+<img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Game%20Layout.png"
+     width="300"
+     height="500"/>
+</p>
+     
+Here, from top to bottom: 
+* there is a level bar (There are 5 levels)
+* requested picture category
+* an imgage view 
+* results text box
+* and a point bar (Out of 100) 
                                                            
 4. Pressing the **Take Photo** button will will take you to your default camera app. Where you may snap of a photo of anything you like.    After accepting your photo you will be taken back to the main screen. 
-5. Here you will see your image. Next hit the **Submit** button, this will analyze your image, send results to the text box, and adjust    your points and level. 
-6. Continue this process until you have passed all 5 levels and beaten the game. 
- 
+<p align="center">
+<img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Accept%20Image.png"
+     width="300"
+     height="500"/>
+</p>
 
-This is where you explain how to use your application
+5. Here you will see your image. Next hit the **Submit** button, this will analyze your image, send results to the text box, and adjust    your points and level. 
+**Adding Points** 
+<p align="center">
+   <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/After%20Submit.png"
+     width="300"
+     height="500" />
+ </p>
+    
+**Changing Levels** 
+<p align="center">
+   <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Level%20Change.png"
+     width="300"
+     height="500" />
+ </p>
+   
+6. Continue this process until you have passed all 5 levels and beaten the game. 
+7. Finishing the game will take you to the last screen where you may replay the game or exit the game. 
+ <p align="center">
+ <img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%203/source/CameraExample%20-%20Copy/Design%20Pictures/Final%20view.png"
+    width="300"
+     height="500" />
+ </p>
+
