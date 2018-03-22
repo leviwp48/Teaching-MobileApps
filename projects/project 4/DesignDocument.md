@@ -27,5 +27,17 @@ How to use:
 ===========
 1. Open up the project within Unity. 
 2. Hitting play will build the board and set the pieces
+<p align="center">
+<img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%204/Screenshot%20(9).png"
+     width="300"
+     height="500"/>
+</p>
+
 3. Clicking a piece will (hopefully) highlight the piece and display the possible moves. 
+<p align="center">
+<img src="https://github.com/leviwp48/Teaching-MobileApps/blob/master/projects/project%204/Screenshot%20(10).png"
+     width="300"
+     height="500"/>
+</p>
+
 4. Clicking somewhere else will delete the displayed moves and return to the original state.
