@@ -1,7 +1,6 @@
 Created by: Levi Pole
 Last Modified: 3/21/18
 
-"""The project is mis-named Chess"""
 
 My Project:
 This is a game of checkers created within Unity. This isn't fully functional, but successfully lays out the board and pieces of the game. 
