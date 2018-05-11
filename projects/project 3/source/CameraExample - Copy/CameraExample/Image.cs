@@ -15,7 +15,7 @@ namespace CameraExample
 {
     public class Image
     {
-        private string[] words = new string[] { "games", "pattern", "black and white", "chess", "square" };
+        private string[] words = new string[] { "circle", "black and white", "text", "blue", "font" };
         private int progress = 0;
         private int lvl = 0;
         public Bitmap bitmap;
@@ -73,6 +73,11 @@ namespace CameraExample
         public int GetLvl()
         {
             return lvl;
+        }
+
+        public int GetProgress()
+        {
+            return progress;
         }
 
         public void UpdatePoints(bool imageCheck)

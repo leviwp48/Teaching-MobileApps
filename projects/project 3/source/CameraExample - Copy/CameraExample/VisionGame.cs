@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 using Android.App;
 using Android.Content;
@@ -23,11 +24,16 @@ namespace CameraExample
         Image image = new Image();
         int _word_track = 0;
         bool imageCheck = false;
+        int old_lvl = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.GameView);
+
+            ImageView takenPic = FindViewById<ImageView>(Resource.Id.gameImage);
+
+            takenPic.Visibility = ViewStates.Invisible;
 
             // TODO: Make text change when progress bar fills up.
             TextView wordToFind = FindViewById<TextView>(Resource.Id.gameText);
@@ -44,10 +50,12 @@ namespace CameraExample
             submit.Click += SubmitPic;
         }
 
-        public void replay(object sender, System.EventArgs e)
+        private void replay(object sender, System.EventArgs e)
         {
-            SetContentView(Resource.Layout.GameView);
+            Intent intent = new Intent(this, typeof(VisionGame));
+            this.StartActivity(intent);
         }
+
         public void end(object sender, System.EventArgs e) => Finish();
 
         public void wordChange()
@@ -79,6 +87,8 @@ namespace CameraExample
             // keeps track of if the image is correct
             imageCheck = false;
 
+            old_lvl = image.GetLvl();
+
             for (int i = 0; i < image.GetTagsLength(); i++)
             {
                 if (image.GetTags(i) == image.GetWords(_word_track))
@@ -107,11 +117,20 @@ namespace CameraExample
             // sends message on picture result
             if (imageCheck == false)
             {
-                wordToFind.Text = string.Format("Sorry it's not a {0}", (image.GetWords(WordTrack)));
+
+                wordToFind.Text = string.Format("Sorry it's not a: {0}", (image.GetWords(WordTrack)));
             }
             else
             {
-                wordToFind.Text = string.Format("Success it's a {0}!", (image.GetWords(WordTrack)));
+                /*
+                if (old_lvl < image.GetLvl())
+                {
+                    wordToFind.Text = string.Format("Success it's a {0}!", (image.GetWords(WordTrack - 1)));
+                }
+                else*/
+              //  {
+                    wordToFind.Text = string.Format("Success it's a {0}!", (image.GetWords(WordTrack)));
+                //}
             }
 
             // goes to final screen
@@ -171,6 +190,8 @@ namespace CameraExample
 
             // Sets image on GameView layout
             ImageView takenPic = FindViewById<ImageView>(Resource.Id.gameImage);
+
+            takenPic.Visibility = ViewStates.Visible;
 
             if (image.CheckBitmap() != false)
             {

@@ -5,9 +5,10 @@ using System;
 
 
 //TODO: 
-//  Check all areas for pieces
-//  highlight move spaces
-//  take a piece if moved over one
+// have facing right and left checks, this way I can tell which way to see if theres an enemy piece
+// maybe instantiated boxes in the check positions
+// Or I could, linecasts, circle overlaps, or gameobjects (ex: snowballPos)
+// have movement done in a lerp or something. 
 
 namespace Checkers
 {
