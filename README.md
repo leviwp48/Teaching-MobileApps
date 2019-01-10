@@ -1,4 +1,9 @@
-# CS 480 - Mobile Apps
-This is the repository for the spring 2018 offering of mobile apps at Humboldt State University.
+# CS 480 - Mobile Apps - Spring 2018
+
+## Project 1
+## Project 2
+## Project 3
+## Project 4
+## Final Project
 
 [Take whiteboarding interview survey here](https://goo.gl/forms/59spFIRyejBexrta2)
