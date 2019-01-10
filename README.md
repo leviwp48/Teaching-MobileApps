@@ -4,6 +4,5 @@
 ## Project 2
 ## Project 3
 ## Project 4
-## Final Project
 
 [Take whiteboarding interview survey here](https://goo.gl/forms/59spFIRyejBexrta2)
