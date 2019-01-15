@@ -20,9 +20,7 @@ namespace CameraExample
     {
         /// <summary>
         /// Used to track the file that we're manipulating between functions
-        /// </summary>
-        public static Java.IO.File _file;        /// <summary>
-        /// Used to track the directory that we'll be writing to between functions
+        public static Java.IO.File _file;        
         /// </summary>
         public static Java.IO.File _dir;
 

@@ -44,6 +44,7 @@ namespace CameraExample
             //output.Text = question;
 
             Button cam = FindViewById<Button>(Resource.Id.takePhoto);
+            //cam.Click += TakePicture;
             cam.Click += TakePicture;
 
             Button submit = FindViewById<Button>(Resource.Id.btn_submit);

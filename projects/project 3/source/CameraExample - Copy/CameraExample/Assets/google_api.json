@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "mobile-apps-tutorial",
+  "private_key_id": "3b7aecce144bea614cc204fd6b599a06a90a2fe6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClfA8Y9q66xKQc\nBsnEqwjo+I3vuVou4z4/2YDPOuDzCuCxylZsUnitHzUE9VCNIu++jvJq2cTcwM9z\ndctHK4g+aHme0piITl/FoWQrGqekprs5BcLW3gMM3J/QZyAadyxh072TlSjt++BP\nnt7Oigv9c1a3TIfV4ORSRLA1H2/KkbbhmWPMt3sETAXcjxB2fg61j2OXM9HMLqiH\nRmP9j4oZmBQIl+9voSDawT/J1fp0xRzrzIjN27oiArdQLfJJYbUeYf4JM8unPf1c\nZuBUOjhoBwu5FZmH3D9Up8YhfQ61iIDu5ciXbbO27RG5LiWWGjHKL43eae6McdHA\nH/O0A4CjAgMBAAECggEAG43/M5BrwsSYcOQ+d4VlK+mrNKX/2rvS8y3D0X3D1CRV\nCrWe01WeK3F9UhCI859EHU5PFjShn4JpaJfOG9EnVADwc14ssNGgB9faRoUfMf7j\nQNjxOvbnuh4IbFqnkVCTrsxjji3xjUL59DgHcIuy+GZao5XWLmpOilZOouHTqv54\n0hlhF0YV4/zm8zGGZtaF1t3hGVoo1WNBAYsntOX+u83rl6yXGL+RZciYU/xbgQOI\niC8mVW9LSN+Sc0mULvJy1V8gXlVEBNKakvGS/pK+kKRpes+W9WddeLzBOtldou/a\nuzns9UHTXHOKXKI2VlOv7n5/Jg946z/MUCoXtzoFPQKBgQDOx12BpHZQN+5EBg6h\n6+bwFjORsiC08XZuGsEnihA+SeUYjaj6SlteZxctjred7VntPhNjAAdQQej5leuT\nYorda2uOlZaXfRoRhWYMbTbPWoxir8heex9Q9W86PJ43DlIyjCCODVYHTByvD2Us\nct0GXNTRUVMVyHA+AMNm/qCotwKBgQDM4FHiQlxUSM+nWZ3S+Vf2gnaffKyvVVbr\n4ATKV/yH3DYKU+ePwhUi/Y75GqWCy08juJGkSHXeB8YN2DFUBBcFTujVxTzZF+jX\nYdgFjPWE6cxLwbzDAix4spEMLdCmW6ZbE09aWJMsIpXD0OPYt0dMShjD+YP042DA\nDSSmG4XDdQKBgBvnc4rnMsAojBLJ7neTahrEJDlpHFjOrPi2y5IWY5LEThI+K6t7\nFVFsAAi51bWOLjCBzAP0IQiHnHTx8lR1W9/9ewpGzYer7jSnF9pdcqQQyBkZN6To\nYJWASX5GZ+NuH1GK72m8Cvv5HXXSUgjph0IwjNeibd/mqJ71Y2kmu2+JAoGBAMJp\nw4o/irn4dgTKR7fiIRStbL+fYYboJpmidSlGIT8TOrzGLiD+/Wu8zSWZoaHiJ/Ev\nvhT1JdRR8CFHHFgroWTKIqxohHtF8xAfqwxpXLqJ2fGxoNw0fdrzKC00dKDIq64V\nPuHu14m0MAYnfW8zTJcaYTHm3s9NzYuxbSurRl3ZAoGAUR+B5zxL84okkWXg5bVl\nX/zIDjyEr3YvTa1WGExcVFemvjxvlTg+aV/S0LzE9MFZh97GEl+B+ePmy3OQKSNV\nBkM+gB838V8VhWrUQXswGJRI8YtovaRUS3Zz/s8VW/vJFnYgpr3iVEFA5qEnbfPJ\noCyA17J34jU4aNuVJzqj6AY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "projectowner@mobile-apps-tutorial.iam.gserviceaccount.com",
+  "client_id": "105744090311628896132",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/projectowner%40mobile-apps-tutorial.iam.gserviceaccount.com"
+}
